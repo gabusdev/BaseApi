@@ -8,8 +8,8 @@
 
         public int PageSize
         {
-            get 
-            { 
+            get
+            {
                 return _pageSize;
             }
             set

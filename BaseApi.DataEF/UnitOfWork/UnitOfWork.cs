@@ -1,6 +1,4 @@
-﻿using BaseApi.Core.Entities;
-using BaseApi.DataEF;
-using BaseApi.DataEF.Repository;
+﻿using BaseApi.DataEF;
 using System;
 using System.Threading.Tasks;
 
@@ -9,7 +7,7 @@ namespace DataEF.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         //public IGenericRepository<Your_Entitie> Entities { get; set; }
-        
+
         private readonly CoreDbContext _context;
         private bool disposed = false;
 

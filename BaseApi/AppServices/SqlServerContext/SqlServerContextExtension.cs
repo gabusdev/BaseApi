@@ -8,8 +8,8 @@ namespace BaseApi.Api.AppServices.MySqlServerContext
     {
         public static void ConfigureSqlServerContext(this IServiceCollection services, string conString)
         {
-            services.AddDbContext<CoreDbContext>( o =>
-                o.UseSqlServer(conString)
+            services.AddDbContext<CoreDbContext>(o =>
+               o.UseSqlServer(conString)
             );
         }
     }

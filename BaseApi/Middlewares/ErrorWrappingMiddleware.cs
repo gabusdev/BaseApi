@@ -40,7 +40,7 @@ namespace BaseApi.Api.Middlewares
                 context.Response.StatusCode = 500;
                 Message = ex.Message;
             }
-            
+
             if (!context.Response.HasStarted)
             {
                 context.Response.ContentType = "application/json";

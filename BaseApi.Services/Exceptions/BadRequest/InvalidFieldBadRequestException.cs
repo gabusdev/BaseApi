@@ -1,5 +1,4 @@
 ﻿using BaseApi.Services.Exceptions.BaseExceptions;
-using System;
 
 namespace BaseApi.Services.Exceptions.BadRequest
 {

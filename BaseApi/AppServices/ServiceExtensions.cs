@@ -1,32 +1,33 @@
-﻿using BaseApi.Api.AppServices.ApiVersioning;
+﻿using AspNetCoreRateLimit;
+using BaseApi.Api.AppServices.ApiVersioning;
 using BaseApi.Api.AppServices.Authorization;
 using BaseApi.Api.AppServices.Caching;
 using BaseApi.Api.AppServices.FluentValidation;
+using BaseApi.Api.AppServices.Identity;
 using BaseApi.Api.AppServices.Jwt;
 using BaseApi.Api.AppServices.MyCors;
 using BaseApi.Api.AppServices.MySqlServerContext;
 using BaseApi.Api.AppServices.MySwagger;
 using BaseApi.Api.AppServices.RateLimit;
-using AspNetCoreRateLimit;
-using BaseApi.Api.AppServices.Identity;
-using DataEF.UnitOfWork;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using BaseApi.Api.Middlewares;
-using BaseApi.Services.Utils;
 using BaseApi.Services;
 using BaseApi.Services.Impl;
+using BaseApi.Services.Utils;
+using DataEF.UnitOfWork;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Web_Api_Net5.AppServices
+namespace BaseApi.Api.AppServices
 {
     public static class ServiceExtensions
     {
         public static void ConfigureServiceExtensions(this IServiceCollection services, IConfiguration conf)
         {
             var conString = conf.GetConnectionString("sqlConnection");
-            
+            // Best tu use Connection String from env
+            // conString = System.Environment.GetEnvironmentVariable("DbConString");
+
             services.ConfigureApiVersioning();
             services.ConfigureAuthorization();
             services.ConfigureCaching();
