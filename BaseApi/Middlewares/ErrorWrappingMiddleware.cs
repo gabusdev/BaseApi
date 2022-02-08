@@ -1,5 +1,6 @@
 ﻿using BaseApi.Services.Exceptions.BaseExceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -10,10 +11,12 @@ namespace BaseApi.Api.Middlewares
     public class ErrorWrappingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ErrorWrappingMiddleware> _logger;
 
-        public ErrorWrappingMiddleware(RequestDelegate next)
+        public ErrorWrappingMiddleware(RequestDelegate next, ILogger<ErrorWrappingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
             Message = "";
         }
 
@@ -39,8 +42,11 @@ namespace BaseApi.Api.Middlewares
             {
                 context.Response.StatusCode = 500;
                 Message = ex.Message;
+                var exMethod = context.Request.Method;
+                var exPath = context.Request.Path;
+                _logger.LogError(ex, $"Error occurred at {exPath} with method {exMethod} and message: {Message}");
             }
-
+            
             if (!context.Response.HasStarted)
             {
                 context.Response.ContentType = "application/json";

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BaseApi.Common.DTO.Request;
 using BaseApi.Core.Entities;
+using Common.Response;
 
 namespace BaseApi.Services.Utils
 {
@@ -9,6 +10,7 @@ namespace BaseApi.Services.Utils
         public MappingProfiles()
         {
             CreateMap<RegisterDTO, User>();
+            CreateMap<User, UserDTO>();
         }
     }
 }

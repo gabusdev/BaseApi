@@ -60,8 +60,6 @@ namespace BaseApi.Api.AppServices
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }

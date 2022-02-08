@@ -1,5 +1,8 @@
+using AppServices.MyLogging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using System;
 
 namespace BaseApi
 {
@@ -7,7 +10,20 @@ namespace BaseApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            Log.Logger = LoggingExtension.ConfigureLogger();
+            try
+            {
+                Log.Information("Application is Starting");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Aplication Failed to Start");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
