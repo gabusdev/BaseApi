@@ -1,6 +1,7 @@
 ﻿using BaseApi.Common.Utils.Request;
 using BaseApi.Core.Entities;
 using BaseApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BaseApi.Api.Controllers
@@ -16,13 +17,15 @@ namespace BaseApi.Api.Controllers
         {
             _service = service;
         }
-
+        
+        [Authorize(Policy = "AdminRights")]
         [HttpGet]
         public ActionResult<WeatherForecast> Get([FromQuery] PaginationParams pagParams)
         {
             return Ok(_service.GetForecast(pagParams));
         }
 
+        [Authorize]
         [HttpGet("/greet")]
         public ActionResult<string> Greet()
         {

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using BaseApi.Core.Entities.Enums;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BaseApi.Api.AppServices.Authorization
 {
@@ -17,8 +19,8 @@ namespace BaseApi.Api.AppServices.Authorization
                     .RequireAuthenticatedUser()
                     .Build();
                 }
-                opt.AddPolicy("Admin",
-                    policy => policy.RequireRole("Admin"));
+                opt.AddPolicy("AdminRights",
+                    policy => policy.RequireRole(Enum.GetName(RoleEnum.Administrator)));
             });
 
         }

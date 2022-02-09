@@ -22,10 +22,9 @@ namespace BaseApi.Api.AppServices.Jwt
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings.GetValue("Issuer", ""),
-                ValidAudience = jwtSettings.GetValue("Audience", ""),
+                ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
+                ValidAudience = jwtSettings.GetValue<string>("Audience"),
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
-
             };
             if (encrypt)
             {

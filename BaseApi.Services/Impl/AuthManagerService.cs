@@ -74,7 +74,7 @@ namespace BaseApi.Services.Impl
                 ?? _configuration.GetSection("Jwt").GetValue<string>("Key");
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
 
-            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256Signature);
         }
         private async Task<List<Claim>> GetClaims(User user)
         {
