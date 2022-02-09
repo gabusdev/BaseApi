@@ -12,14 +12,13 @@ namespace BaseApi.Api.AppServices.ApiVersioning
             {
                 opt.ReportApiVersions = true;
                 opt.AssumeDefaultVersionWhenUnspecified = true;
-                opt.DefaultApiVersion = new ApiVersion(1, 0);
+                opt.DefaultApiVersion = new ApiVersion(2, 0);
                 if (headerCheck)
                     opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
             services.AddVersionedApiExplorer(o =>
             {
-                o.GroupNameFormat = "'v'VVV";
-                o.SubstituteApiVersionInUrl = true;
+                o.GroupNameFormat = "'v' VVV";
             });
         }
     }
