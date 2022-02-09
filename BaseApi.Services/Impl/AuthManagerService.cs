@@ -18,13 +18,13 @@ using System.Threading.Tasks;
 
 namespace BaseApi.Services.Impl
 {
-    public class AuthManager : IAuthManager
+    public class AuthManagerService : IAuthManagerService
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AuthManager(IConfiguration configuration, UserManager<User> userManager, IMapper mapper)
+        public AuthManagerService(IConfiguration configuration, UserManager<User> userManager, IMapper mapper)
         {
             _configuration = configuration;
             _userManager = userManager;
@@ -74,7 +74,7 @@ namespace BaseApi.Services.Impl
                 ?? _configuration.GetSection("Jwt").GetValue<string>("Key");
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
 
-            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256Signature);
         }
         private async Task<List<Claim>> GetClaims(User user)
         {

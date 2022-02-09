@@ -2,18 +2,16 @@
 using BaseApi.Api.AppServices.ApiVersioning;
 using BaseApi.Api.AppServices.Authorization;
 using BaseApi.Api.AppServices.Caching;
+using BaseApi.Api.AppServices.DI;
 using BaseApi.Api.AppServices.FluentValidation;
 using BaseApi.Api.AppServices.Identity;
 using BaseApi.Api.AppServices.Jwt;
 using BaseApi.Api.AppServices.MyCors;
 using BaseApi.Api.AppServices.MySqlServerContext;
-using BaseApi.Api.AppServices.MySwagger;
 using BaseApi.Api.AppServices.RateLimit;
+using BaseApi.Api.AppServices.Swagger;
 using BaseApi.Api.Middlewares;
-using BaseApi.Services;
-using BaseApi.Services.Impl;
 using BaseApi.Services.Utils;
-using DataEF.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +30,7 @@ namespace BaseApi.Api.AppServices
             services.ConfigureAuthorization();
             services.ConfigureCaching();
             services.ConfigureCors();
+            services.ConfigureDI();
             services.ConfigureFluentValidation();
             services.ConfigureIdentity();
             services.ConfigureJwt(conf);
@@ -41,8 +40,6 @@ namespace BaseApi.Api.AppServices
             services.AddAuthentication();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddScoped<IAuthManager, AuthManager>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public static void UseServiceExtensions(this IApplicationBuilder app)
