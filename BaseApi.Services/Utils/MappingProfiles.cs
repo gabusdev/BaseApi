@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BaseApi.Common.DTO.Request;
+using BaseApi.Common.Response;
 using BaseApi.Core.Entities;
-using Common.Response;
 
 namespace BaseApi.Services.Utils
 {
