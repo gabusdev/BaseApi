@@ -8,7 +8,7 @@ namespace BaseApi.Api.AppServices.MyCors
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("MyCorsPolicy", builder =>
+                options.AddPolicy("AllowAllPolicy", builder =>
                     builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()

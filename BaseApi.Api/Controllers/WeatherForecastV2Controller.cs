@@ -17,7 +17,7 @@ namespace BaseApi.Api.Controllers
         {
             _service = service;
         }
-        
+
         [Authorize(Policy = "AdminRights")]
         [HttpGet]
         public ActionResult<WeatherForecast> Get([FromQuery] PaginationParams pagParams)
