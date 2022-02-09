@@ -16,6 +16,11 @@ namespace BaseApi.Api.AppServices.ApiVersioning
                 if (headerCheck)
                     opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
+            services.AddVersionedApiExplorer(o =>
+            {
+                o.GroupNameFormat = "'v'VVV";
+                o.SubstituteApiVersionInUrl = true;
+            });
         }
     }
 }

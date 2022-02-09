@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BaseApi.Services
 {
-    public interface IAuthManager
+    public interface IAuthManagerService
     {
         Task<(User user, string accessToken)> AuthenticateAsync(LoginDTO loginDto);
         Task<User> RegisterAsync(RegisterDTO loginDto);

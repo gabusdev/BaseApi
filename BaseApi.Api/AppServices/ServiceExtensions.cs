@@ -2,6 +2,7 @@
 using BaseApi.Api.AppServices.ApiVersioning;
 using BaseApi.Api.AppServices.Authorization;
 using BaseApi.Api.AppServices.Caching;
+using BaseApi.Api.AppServices.DI;
 using BaseApi.Api.AppServices.FluentValidation;
 using BaseApi.Api.AppServices.Identity;
 using BaseApi.Api.AppServices.Jwt;
@@ -41,8 +42,7 @@ namespace BaseApi.Api.AppServices
             services.AddAuthentication();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
-            services.AddScoped<IAuthManager, AuthManager>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.ConfigureDI();
         }
 
         public static void UseServiceExtensions(this IApplicationBuilder app)

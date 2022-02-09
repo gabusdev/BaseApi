@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -9,23 +10,23 @@ namespace BaseApi.Api.AppServices.MySwagger
 {
     public static class SwaggerExtension
     {
-        public static void ConfigureSwagger(this IServiceCollection services, IConfiguration config, bool JwtAuth = false)
+        public static void ConfigureSwagger(this IServiceCollection services, IConfiguration config, bool jwtAuth = false)
         {
-            var SwaggerConfig = GetConfig(config);
+            var swaggerConfig = GetConfig(config);
             services.AddSwaggerGen(opt =>
             {
                 opt.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Description = SwaggerConfig.Description,
-                    Title = SwaggerConfig.Title,
-                    Version = SwaggerConfig.Version,
+                    Description = swaggerConfig.Description,
+                    Title = swaggerConfig.Title,
+                    Version = swaggerConfig.Version,
                     Contact = new OpenApiContact()
                     {
-                        Name = SwaggerConfig.Contact_Name,
-                        Url = new Uri(SwaggerConfig.Contact_Url)
+                        Name = swaggerConfig.Contact_Name,
+                        Url = new Uri(swaggerConfig.Contact_Url)
                     }
                 });
-                if (JwtAuth)
+                if (jwtAuth)
                 {
                     opt.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                     {
@@ -60,6 +61,24 @@ namespace BaseApi.Api.AppServices.MySwagger
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+        }
+
+        private static OpenApiInfo CreateApiDescription(ApiVersionDescription apiDescription, SwaggerConfig conf)
+        {
+            
+            var apiInfo = new OpenApiInfo
+            {
+                Description = conf.Description,
+                Title = conf.Title,
+                Version = apiDescription.ApiVersion.ToString(),
+                Contact = new OpenApiContact()
+                {
+                    Name = conf.Contact_Name,
+                    Url = new Uri(conf.Contact_Url)
+                }
+            };
+
+            return apiInfo;
         }
 
         private static SwaggerConfig GetConfig(IConfiguration config)

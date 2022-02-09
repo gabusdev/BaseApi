@@ -6,7 +6,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-//using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace WebApi.Api.Controllers
@@ -18,14 +17,14 @@ namespace WebApi.Api.Controllers
         //private readonly IUnitOfWork _uow;
         private readonly ILogger<AuthController> _logger;
         private readonly IMapper _mapper;
-        private readonly IAuthManager _authManager;
+        private readonly IAuthManagerService _authManager;
         private readonly IValidator<LoginDTO> _loginValidator;
         private readonly IValidator<RegisterDTO> _registerValidator;
 
         public AuthController(
             ILogger<AuthController> logger,
             IMapper mapper,
-            IAuthManager authManager,
+            IAuthManagerService authManager,
             IValidator<LoginDTO> loginValidator,
             IValidator<RegisterDTO> registerValidator)
         {

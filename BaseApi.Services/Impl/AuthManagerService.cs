@@ -18,13 +18,13 @@ using System.Threading.Tasks;
 
 namespace BaseApi.Services.Impl
 {
-    public class AuthManager : IAuthManager
+    public class AuthManagerService : IAuthManagerService
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AuthManager(IConfiguration configuration, UserManager<User> userManager, IMapper mapper)
+        public AuthManagerService(IConfiguration configuration, UserManager<User> userManager, IMapper mapper)
         {
             _configuration = configuration;
             _userManager = userManager;
