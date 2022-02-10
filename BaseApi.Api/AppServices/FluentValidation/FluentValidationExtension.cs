@@ -1,5 +1,5 @@
-﻿using BaseApi.Core.Validations;
-using Common.DTO.Request.Validations;
+﻿using BaseApi.Common.DTO.Request.Validations;
+using BaseApi.Core.Validations;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 

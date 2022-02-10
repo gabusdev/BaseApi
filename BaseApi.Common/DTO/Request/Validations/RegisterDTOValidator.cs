@@ -1,7 +1,7 @@
 ﻿using BaseApi.Common.DTO.Request;
 using FluentValidation;
 
-namespace Common.DTO.Request.Validations
+namespace BaseApi.Common.DTO.Request.Validations
 {
     public class RegisterDTOValidator : AbstractValidator<RegisterDTO>
     {
