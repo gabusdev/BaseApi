@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BaseApi.Common.DTO.Request;
+using BaseApi.Common.Response;
 using BaseApi.Services;
-using Common.Response;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,8 +40,7 @@ namespace WebApi.Api.Controllers
             if (!result.IsValid)
                 return BadRequest(result);
 
-            var user = await _authManager.RegisterAsync(registerDTO);
-            var userDto = _mapper.Map<UserDTO>(user);
+            var userDto = await _authManager.RegisterAsync(registerDTO);
             return Created("", userDto);
         }
 

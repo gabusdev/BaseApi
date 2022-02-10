@@ -1,4 +1,4 @@
-﻿namespace Common.Response
+﻿namespace BaseApi.Common.Response
 {
     public class UserDTO
     {

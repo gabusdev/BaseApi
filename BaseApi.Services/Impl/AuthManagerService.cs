@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BaseApi.Common.DTO.Request;
+using BaseApi.Common.Response;
 using BaseApi.Core.Entities;
 using BaseApi.Core.Entities.Enums;
 using BaseApi.Services.Exceptions.BadRequest;
@@ -30,7 +31,7 @@ namespace BaseApi.Services.Impl
             _userManager = userManager;
             _mapper = mapper;
         }
-        public async Task<(User user, string accessToken)> AuthenticateAsync(LoginDTO loginDto)
+        public async Task<(UserDTO userDto, string accessToken)> AuthenticateAsync(LoginDTO loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
@@ -44,9 +45,10 @@ namespace BaseApi.Services.Impl
                 throw new UnauthorizedException("The Password provided is wrong", (int)CustomCodeEnum.WrongPassword);
             }
 
-            return (user, await CreateToken(user));
+            var userDto = _mapper.Map<UserDTO>(user);
+            return (userDto, await CreateToken(user));
         }
-        public async Task<User> RegisterAsync(RegisterDTO registerDto)
+        public async Task<UserDTO> RegisterAsync(RegisterDTO registerDto)
         {
             var user = _mapper.Map<User>(registerDto);
 
@@ -58,7 +60,8 @@ namespace BaseApi.Services.Impl
             if (!result.Succeeded)
                 throw new InvalidFieldBadRequestException(result.Errors.First().Description, (int)CustomCodeEnum.FailedRoleAdded);
 
-            return user;
+            var userDto = _mapper.Map<UserDTO>(user);
+            return userDto;
         }
 
         private async Task<string> CreateToken(User user)
@@ -74,7 +77,7 @@ namespace BaseApi.Services.Impl
                 ?? _configuration.GetSection("Jwt").GetValue<string>("Key");
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
 
-            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256Signature);
+            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha512Signature);
         }
         private async Task<List<Claim>> GetClaims(User user)
         {

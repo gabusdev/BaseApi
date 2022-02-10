@@ -1,5 +1,5 @@
 ﻿using BaseApi.Common.DTO.Request;
-using BaseApi.Core.Entities;
+using BaseApi.Common.Response;
 using System.Threading.Tasks;
 
 
@@ -7,7 +7,7 @@ namespace BaseApi.Services
 {
     public interface IAuthManagerService
     {
-        Task<(User user, string accessToken)> AuthenticateAsync(LoginDTO loginDto);
-        Task<User> RegisterAsync(RegisterDTO loginDto);
+        Task<(UserDTO userDto, string accessToken)> AuthenticateAsync(LoginDTO loginDto);
+        Task<UserDTO> RegisterAsync(RegisterDTO loginDto);
     }
 }
